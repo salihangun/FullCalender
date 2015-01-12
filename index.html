@@ -124,68 +124,71 @@
     <script src="js/table.js"></script>
     <script src='js/moment.min.js'></script>
     <script src='js/fullcalendar.min.js'></script>
-    $('#datetimepicker').datetimepicker({
-    dayOfWeekStart: 4,
-    lang: 'en',
-    disabledDates: ['2015/01/01', '2015/01/02', '2015/01/02'],
-    startDate: '2015/01/01'
-    });
-    $('#datetimepicker').datetimepicker({ value: '2015/01/01', step: 1 });
+    <script>
+        $('#datetimepicker').datetimepicker({
+            dayOfWeekStart: 4,
+            //lang: 'en',
+            //disabledDates: ['2015/01/01', '2015/01/02', '2015/01/02'],
+            //startDate: '2015/01/01'
+            timepicker: false,
+            format: 'Y-m-d'
+        });
+        $('#datetimepicker').datetimepicker({ value: '2015-01-01', step: 1 });
 
-    $('.some_class').datetimepicker();
+        $('.some_class').datetimepicker();
 
-    $('#default_datetimepicker').datetimepicker({
-    formatDate: 'd.m.Y',
-    defaultDate: '01.01.2015',
-    timepickerScrollbar: false
-    });
+        $('#default_datetimepicker').datetimepicker({
+            formatDate: 'd.m.Y',
+            defaultDate: '01.01.2015',
+            timepickerScrollbar: false
+        });
 
-    $('#localStorageTest').submit(function () {
-    var itemlist = [];
-    var storedData = localStorage.getItem("mycalendar");
-    if (storedData) {
-    itemlist = JSON.parse(storedData);
-    }
+        $('#localStorageTest').submit(function () {
+            var itemlist = [];
+            var storedData = localStorage.getItem("mycalendar");
+            if (storedData) {
+                itemlist = JSON.parse(storedData);
+            }
 
-    itemlist.push({
-    name: document.getElementById('name').value,
-    surname: document.getElementById('surname').value,
-    email: document.getElementById('email').value,
-    phone: document.getElementById('phone').value,
-    subject: document.getElementById('subject').value,
-    message: document.getElementById('message').value,
-    startdate: document.getElementById('datetimepicker').value.substring(0, 10).replace("/", "-").replace("/", "-")
-    });
-    localStorage.setItem("mycalendar", JSON.stringify(itemlist));
+            itemlist.push({
+                name: document.getElementById('name').value,
+                surname: document.getElementById('surname').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                subject: document.getElementById('subject').value,
+                message: document.getElementById('message').value,
+                startdate: document.getElementById('datetimepicker').value
+            });
+            localStorage.setItem("mycalendar", JSON.stringify(itemlist));
 
-    });
+        });
 
-    var items = [];
-    var Datas = localStorage.getItem("mycalendar");
-    if (Datas) {
-    items = JSON.parse(Datas);
-    for (var i in items) {
-    $('#mytable').append("<tr> <td>" + items[i].name + "</td><td>" + items[i].surname + "</td><td>" + items[i].email + "</td><td>" + items[i].phone + "</td> <td>" + items[i].subject + "</td> <td>" + items[i].message + "</td> <td>" + items[i].startdate + "</td> </tr>");
+        var items = [];
+        var Datas = localStorage.getItem("mycalendar");
+        if (Datas) {
+            items = JSON.parse(Datas);
+            for (var i in items) {
+                $('#mytable').append("<tr> <td>" + items[i].name + "</td><td>" + items[i].surname + "</td><td>" + items[i].email + "</td><td>" + items[i].phone + "</td> <td>" + items[i].subject + "</td> <td>" + items[i].message + "</td> <td>" + items[i].startdate + "</td> </tr>");
 
-    }
-    var calenderdata=[];
-    for (var i in items) {
-    calenderdata.push({ title: items[i].name, start: items[i].startdate })
-    }
+            }
+            var calenderdata = [];
+            for (var i in items) {
+                calenderdata.push({ title: items[i].name, start: items[i].startdate })
+            }
 
-    $('#calendar').fullCalendar({
-    header: {
-    left: 'prev,next today',
-    center: 'title',
-    right: 'month,basicWeek,basicDay'
-    },
-    defaultDate: '2015-01-11',
-    editable: true,
-    eventLimit: true, // allow "more" link when too many events
-    events:  calenderdata
-    });
+            $('#calendar').fullCalendar({
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,basicWeek,basicDay'
+                },
+                defaultDate: '2015-01-11',
+                editable: true,
+                eventLimit: true, // allow "more" link when too many events
+                events: calenderdata
+            });
 
-    }
+        }
 
 
 
